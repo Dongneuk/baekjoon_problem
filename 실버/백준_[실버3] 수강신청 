@@ -1,0 +1,22 @@
+import sys
+
+K, L = map(int, input().split())
+input = sys.stdin.readline()
+
+dic = {}
+
+for i in range(L):
+    student = input().rstrip()
+    dic[student] = i
+
+dic = sorted(dic.items(), key=lambda x:x[1])
+
+cnt = 0
+for j in dic:
+    cnt += 1
+    if cnt > K:
+        break
+    print(j[0])
+
+
+
