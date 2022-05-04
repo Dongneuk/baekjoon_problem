@@ -1,0 +1,26 @@
+import sys
+input = sys.stdin.readline
+
+s = list(input().rstrip())
+bomb = list(input().rstrip())
+
+
+stack = []
+
+for i in range(len(s)):
+    stack.append(s[i])
+
+    if stack[-1] == bomb[-1]:
+        if stack[-len(bomb):] == bomb:
+            for i in range(len(bomb)):
+                stack.pop()
+
+
+if len(stack) != 0:
+    print("".join(stack))
+else:
+    print("FRULA")
+
+## 스텍을 활용하여 s의 문자를 순차적으로 담는다.
+## 만약 bomb[-1]이 값이 스텍의 젤 마지막 값과 일치할 경우, bomb길이 만큼 같은지 s에서 확인.
+## 맞을 경우 bomb 길이만큼 stack에서 pop 한다.
