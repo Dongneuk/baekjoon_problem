@@ -1,0 +1,7 @@
+s = input()
+
+for i in range(len(s)):
+    temp = s + s[:i][::-1]
+    if temp == temp[::-1]:
+        print(len(temp))
+        break
