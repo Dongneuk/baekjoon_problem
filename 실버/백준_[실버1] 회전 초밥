@@ -1,0 +1,37 @@
+from collections import defaultdict
+import sys
+
+n, d, k, c = map(int, sys.stdin.readline().split())
+
+lst = [int(sys.stdin.readline()) for _ in range(n)]
+lst.extend(lst)
+
+left = 0
+right = 0
+dic = defaultdict(int)
+result = 0
+
+# 무조건 먹는 쿠폰
+dic[c] = 1
+
+# 맨 앞부터 k구간 만큼 먹기
+while right < k:
+    dic[lst[right]] += 1
+    right += 1
+
+
+while right < len(lst):
+    result = max(result, len(dic))
+    # 왼쪽 초밥 하나 빼기
+    dic[lst[left]] -= 1
+    # 먹은 초밥 갯수가 0이 되면 del 하기.
+    if dic[lst[left]] == 0:
+        del dic[lst[left]]
+
+    # 오른쪽 초밥 한개 추가.
+    dic[lst[right]] += 1
+
+    left += 1
+    right += 1
+
+print(result)
