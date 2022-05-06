@@ -1,0 +1,41 @@
+import sys
+
+n = int(input())
+
+# 용액을 리스트에 넣고 작은 정렬
+lst = list(map(int, sys.stdin.readline().split(' ')))
+lst.sort()
+
+
+# 포인터 설정
+l = 0
+r = len(lst)-1
+min_sum = float("inf")
+save_l, save_r = 0, 0
+
+
+while l < r:
+    sum = lst[l] + lst[r]
+
+    if abs(sum) < abs(min_sum):
+        min_sum = sum
+        save_l = l
+        save_r = r
+
+    if sum < 0:
+        l += 1
+
+    else:
+        r -= 1
+
+print(lst[save_l], lst[save_r])
+
+
+
+
+
+
+
+
+
+
