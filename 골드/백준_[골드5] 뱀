@@ -1,0 +1,54 @@
+from collections import deque
+
+
+# 상 우 하 좌
+dy = [-1, 0, 1, 0]
+dx = [0, 1, 0, -1]
+
+def change(d, c):
+    if c == "L":
+        d = (d-1) % 4
+    else:
+        d = (d+1) % 4
+    return d
+
+def snake():
+    direction = 1 # 오른쪽
+    time = 1
+    y, x = 0, 0 # 처음 뱀 위치
+    visited = deque([[y, x]])
+    graph[y][x] = 2 # 뱀이 있는 위치는 2로 설정.
+
+    while True:
+        y, x = y + dy[direction], x + dx[direction]
+        if 0 <= y < n and 0 <= x < n and graph[y][x] != 2:
+            if not graph[y][x] == 1:  # 사과 없는 경우
+                temp_y, temp_x = visited.popleft()
+                graph[temp_y][temp_x] = 0 # 꼬리 제거
+            graph[y][x] = 2
+            visited.append([y, x])
+            if time in times.keys():
+                direction = change(direction, times[time])
+            time += 1
+        else:
+            return time
+
+
+n = int(input())
+k = int(input())
+
+## 사과가 있는 부분을 그래프에서 1로 표현.
+graph = [[0] * n for _ in range(n)]
+for _ in range(k):
+    a, b = map(int, input().split())
+    graph[a-1][b-1] = 1
+
+
+L = int(input())
+times = {}
+for i in range(L):
+    X, C = input().split()
+    times[int(X)] = C
+
+print(snake())
+
