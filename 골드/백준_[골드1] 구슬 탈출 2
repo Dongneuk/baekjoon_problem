@@ -1,0 +1,71 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+board = [list(map(str, input().strip())) for _ in range(n)]
+queue = deque()
+visited = [[[[False] * m for _ in range(n)] for _ in range(m)] for _ in range(n)]
+
+
+
+def init():
+    rx, ry, bx, by = [0] * 4
+    for i in range(n):
+        for j in range(m):
+            if board[i][j] == 'R':
+                rx, ry = i, j
+            elif board[i][j] == 'B':
+                bx, by = i, j
+    queue.append((rx, ry, bx, by, 1))
+    visited[rx][ry][bx][by] = True
+
+
+dx = (-1, 0, 1, 0)
+dy = (0, 1, 0, -1)
+
+def move(x, y, dx, dy):
+    cnt = 0 # 이동한 칸 수
+
+    # 다음 위치가 벽이거나 구멍이 아닐때까지
+    while board[x+dx][y+dy] != '#' and board[x][y] != 'O':
+        x += dx
+        y += dy
+        cnt += 1
+    return x, y, cnt
+
+def bfs():
+    init()
+
+    while queue:
+        rx, ry, bx, by, depth = queue.popleft()
+        if depth > 10:
+            break
+
+        for i in range(4):
+            next_rx, next_ry, r_count = move(rx, ry, dx[i], dy[i])
+            next_bx, next_by, b_count = move(bx, by, dx[i], dy[i])
+
+            if board[next_bx][next_by] == 'O':
+                continue
+
+            if board[next_rx][next_ry] == 'O':
+                print(depth)
+                return
+
+            if next_rx == next_bx and next_ry == next_by:
+                if r_count > b_count:
+                    next_rx -= dx[i]
+                    next_ry -= dy[i]
+
+                else:
+                    next_bx -= dx[i]
+                    next_by -= dy[i]
+
+            if not visited[next_rx][next_ry][next_bx][next_by]:
+                visited[next_rx][next_ry][next_bx][next_by] = True
+                queue.append((next_rx, next_ry, next_bx, next_by, depth + 1))
+    print(-1)
+
+
+bfs()
