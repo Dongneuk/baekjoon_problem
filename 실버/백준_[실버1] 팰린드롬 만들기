@@ -5,3 +5,5 @@ for i in range(len(s)):
     if temp == temp[::-1]:
         print(len(temp))
         break
+
+## temp 활용.
