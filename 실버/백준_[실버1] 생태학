@@ -1,0 +1,21 @@
+import sys
+from collections import defaultdict
+
+tree_dic = defaultdict(int)
+
+# to check the length of tree_dic
+n = 0
+while True:
+    tree = input().rstrip()
+
+    if not tree:
+        break
+    tree_dic[tree] += 1
+    n += 1
+
+tree_lst = list(tree_dic.keys())
+tree_lst.sort()
+
+for tree in tree_lst:
+    print('%s %.4f' %(tree, tree_dic[tree] / n * 100))
+
