@@ -6,4 +6,4 @@ for i in range(len(s)):
         print(len(temp))
         break
 
-## temp 활용.
+## temp 활용
