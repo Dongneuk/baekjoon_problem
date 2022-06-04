@@ -33,4 +33,4 @@ for _ in range(K):
                 break
     print('YES' if bipatite else 'NO')
 
-## 1, -1로 나눈다.
+## 1, -1로 나눈다..
