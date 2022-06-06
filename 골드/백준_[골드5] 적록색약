@@ -48,6 +48,6 @@ for i in range(n):
 
 print(normal_cnt, weak_cnt)
 
-# 케이스 두개로 나눠서 풀기.
+# 케이스 두개로 나눠서 풀기!
 
 
