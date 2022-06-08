@@ -1,49 +1,46 @@
 import sys
 from collections import deque
-
-
 input = sys.stdin.readline
 
 t = int(input())
 
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
+dy = [-1, 0, 1, 0]
+dx = [0, -1, 0, 1]
 
-def bfs(graph, a, b):
+cnt = 0
+
+def bfs(graph, y, x):
+    global cnt
     queue = deque()
-    queue.append((a, b))
-    graph[a][b] = 0
+    queue.append((y, x))
+    graph[y][x] = 0
 
     while queue:
-        x, y = queue.popleft()
+        y, x = queue.popleft()
         for i in range(4):
-            nx = x + dx[i]
             ny = y + dy[i]
-            if nx < 0 or nx >= n or ny < 0 or ny >= m:
+            nx = x + dx[i]
+
+            if 0 > ny or ny >= len(graph) or 0 > nx or nx >= len(graph[0]):
                 continue
-            if graph[nx][ny] == 1:
-                graph[nx][ny] = 0
-                queue.append((nx, ny))
-    return
+
+            elif graph[ny][nx] == 1:
+                graph[ny][nx] = 0
+                queue.append((ny, nx))
+
 
 
 for _ in range(t):
     cnt = 0
-    n, m, k = map(int, input().split())
+    m, n, k = map(int, input().split())
     graph = [[0] * m for _ in range(n)]
+    for _ in range(k):
+        a, b = map(int, input().split())
+        graph[b][a] = 1
 
-    for i in range(k):
-        x, y = map(int, input().split())
-        graph[x][y] = 1
-
-    for a in range(n):
-        for b in range(m):
-            if graph[a][b] == 1:
-                bfs(graph, a, b)
+    for i in range(n):
+        for j in range(m):
+            if graph[i][j] == 1:
+                bfs(graph, i, j)
                 cnt += 1
-
     print(cnt)
-
-# bfs만 사용할 수 있으면 되기 때문에 굳이 가로, 세로를 정확하게 맞출 필요는 없다.
-
-
