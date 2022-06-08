@@ -44,3 +44,45 @@ for _ in range(t):
                 bfs(graph, i, j)
                 cnt += 1
     print(cnt)
+
+############################################################
+
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10000)
+
+t = int(input())
+
+dy = [-1, 0, 1, 0]
+dx = [0, -1, 0, 1]
+
+
+def dfs(y, x):
+
+    for i in range(4):
+        ny = y + dy[i]
+        nx = x + dx[i]
+
+        if 0 <= ny < n and 0 <= nx < m:
+            if graph[ny][nx] == 1:
+                graph[ny][nx] = 0
+                dfs(ny, nx)
+
+
+for _ in range(t):
+    cnt = 0
+    m, n, k = map(int, input().split())
+    graph = [[0] * m for _ in range(n)]
+
+    for _ in range(k):
+        a, b = map(int, input().split())
+        graph[b][a] = 1
+
+    for i in range(n):
+        for j in range(m):
+            if graph[i][j] == 1:
+                dfs(i, j)
+                cnt += 1
+    print(cnt)
+
+
