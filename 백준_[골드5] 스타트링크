@@ -1,0 +1,38 @@
+import sys
+from collections import deque
+
+input = sys.stdin.readline
+
+# F = 총 건물 층수, S = 시작 위치, G = 회사 위치
+f, s, g, u, d = map(int, input().split())
+
+visited = [0] * (f + 1)
+
+def bfs(s):
+    queue = deque()
+    queue.append(s)
+    visited[s] = 1
+
+    while queue:
+        now = queue.popleft()
+
+        if now == g:
+            print(visited[now] - 1)
+            return
+
+        up = now + u
+        down = now - d
+
+        if up <= f and not visited[up]:
+            queue.append(up)
+            visited[up] = visited[now] + 1
+
+        if down > 0 and not visited[down]:
+            queue.append(down)
+            visited[down] = visited[now] + 1
+
+    else:
+        print("use the stairs")
+        return
+
+bfs(s)
