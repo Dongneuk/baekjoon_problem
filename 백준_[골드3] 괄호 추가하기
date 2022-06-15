@@ -1,0 +1,47 @@
+import sys
+
+input = sys.stdin.readline
+
+n = int(input())
+f = [int(x) if x.isdigit() else x for x in input().rstrip()]
+
+
+def cal_nums(pre, post, op):
+    if op == '+':
+        return pre + post
+    elif op == '-':
+        return pre - post
+    else:
+        return pre * post
+
+
+def cal_queue(queue):
+    result = queue[0]
+    for i in range(0, len(queue) - 2, 2):
+        post = queue[i + 2]
+        result = cal_nums(result, post, queue[i + 1])
+    return result
+
+
+def insert_bracket(i, q):
+    if i == n - 1:
+        no_br = q + [f[i]]
+        return cal_queue(no_br)
+
+    if i == n - 3:
+        no_br = q + [f[i], f[i + 1]]
+        temp = cal_nums(f[i], f[i + 2], f[i + 1])
+        br = q + [temp]
+        return max(insert_bracket(i + 2, no_br), cal_queue(br))
+
+    # 안 넣는 경우
+    no_br = q + [f[i], f[i + 1]]
+
+    # 넣는 경우
+    temp = cal_nums(f[i], f[i + 2], f[i + 1])
+    br = q + [temp, f[i + 3]]
+
+    return max(insert_bracket(i + 2, no_br), insert_bracket(i + 4, br))
+
+
+print(insert_bracket(0, []))
