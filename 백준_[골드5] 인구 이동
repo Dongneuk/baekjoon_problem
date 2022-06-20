@@ -1,0 +1,63 @@
+import math
+import sys
+from collections import deque
+
+input = sys.stdin.readline
+
+n, l, r = map(int, input().split())
+graph = []
+
+for _ in range(n):
+    graph.append(list(map(int, input().split())))
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, 1, -1]
+
+
+def bfs(x, y):
+    queue = deque()
+    queue.append((x, y))
+    visited[x][y] = True
+
+    union = [(x, y)]
+    cnt = graph[x][y]
+
+    while queue:
+        a, b = queue.popleft()
+        for d in range(4):
+            nx = a + dx[d]
+            ny = b + dy[d]
+
+            if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                continue
+
+            if visited[nx][ny]:
+                continue
+
+            if l <= abs(graph[a][b] - graph[nx][ny]) <= r:
+                union.append((nx, ny))
+                visited[nx][ny] = True
+                queue.append((nx, ny))
+                cnt += graph[nx][ny]
+    for i, j in union:
+        graph[i][j] = math.floor(cnt / len(union))
+
+    return len(union)
+
+
+day = 0
+while True:
+    visited = [[False] * n for _ in range(n)]
+    flag = False
+
+    for i in range(n):
+        for j in range(n):
+            if not visited[i][j]:
+                if bfs(i, j) > 1:
+                    flag = True
+
+    if not flag:
+        break
+    day += 1
+
+print(day)
