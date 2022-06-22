@@ -1,0 +1,71 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+n = int(input())
+
+graph = []
+for _ in range(n):
+    graph.append(list(map(int, input().split())))
+
+
+fish_pos = []
+fish_cnt = 0
+shark_x, shark_y, size = 0, 0, 2
+for i in range(n):
+    for j in range(n):
+        if 0 < graph[i][j] <= 6:
+            fish_cnt += 1
+            fish_pos.append((i, j))
+        elif graph[i][j] == 9:
+            shark_x, shark_y = i, j
+
+graph[shark_x][shark_y] = 0
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(shark_x, shark_y):
+    queue = deque()
+    queue.append([shark_x, shark_y, 0])
+    dist_lst = []
+    visited = [[False] * n for _ in range(n)]
+    visited[shark_x][shark_y] = True
+    min_dist = int(1e9)
+
+    while queue:
+        x, y, dist = queue.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < n and 0 <= ny < n and not visited[nx][ny]:
+                if graph[nx][ny] <= size:
+                    visited[nx][ny] = True
+                    if 0 < graph[nx][ny] < size:
+                        min_dist = dist
+                        dist_lst.append((dist + 1, nx, ny))
+                    if dist + 1 <= min_dist:
+                        queue.append((nx, ny, dist+1))
+
+    if dist_lst:
+        dist_lst.sort()
+        return dist_lst[0]
+    else:
+        return False
+
+time = 0
+eat_cnt = 0
+while fish_cnt:
+    result = bfs(shark_x, shark_y)
+    if not result:
+        break
+    shark_x, shark_y = result[1], result[2]
+    time += result[0]
+    eat_cnt += 1
+    fish_cnt -= 1
+    if size == eat_cnt:
+        size += 1
+        eat_cnt = 0
+    graph[shark_x][shark_y] = 0
+
+print(time)
