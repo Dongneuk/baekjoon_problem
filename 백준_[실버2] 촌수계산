@@ -1,0 +1,32 @@
+
+n = int(input())
+a, b = map(int, input().split())
+m = int(input())
+visited = [False] * (n+1)
+
+graph = [[] for _ in range(n+1)]
+for _ in range(m):
+    p, c = map(int, input().split())
+    graph[p].append(c)
+    graph[c].append(p)
+
+answer = 0
+def dfs(v, cnt):
+    global answer
+    cnt += 1
+    visited[v] = True
+
+    if v == b:
+        answer = cnt
+
+    for i in graph[v]:
+        if not visited[i]:
+            dfs(i, cnt)
+
+
+dfs(a, 0)
+
+if answer == 0:
+    print(-1)
+else:
+    print(answer-1)
