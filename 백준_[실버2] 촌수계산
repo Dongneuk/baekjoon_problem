@@ -30,3 +30,43 @@ if answer == 0:
     print(-1)
 else:
     print(answer-1)
+
+
+
+    ################################################
+
+
+    import sys
+from collections import deque
+input = sys.stdin.readline
+n = int(input())
+a, b = map(int, input().split())
+m = int(input())
+
+graph = [[] for _ in range(n + 1)]
+visited = [False] * (n+1)
+check = [0] * (n+1)
+for _ in range(m):
+    p, c = map(int, input().split())
+    graph[p].append(c)
+    graph[c].append(p)
+
+def bfs(v):
+    queue = deque()
+    queue.append(v)
+    visited[v] = True
+
+    while queue:
+        node = queue.popleft()
+        for i in graph[node]:
+            if not visited[i]:
+                queue.append(i)
+                check[i] = check[node] + 1
+                visited[i] = True
+
+
+bfs(a)
+if check[b] > 0:
+    print(check[b])
+else:
+    print(-1)
