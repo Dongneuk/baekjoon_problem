@@ -1,0 +1,35 @@
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+t = int(input())
+
+dx = [1, 1, 2, 2, -1, -1, -2, -2]
+dy = [2, -2, 1, -1, 2, -2, 1, -1]
+
+def bfs(a, b, board):
+    queue = deque()
+    queue.append([a, b])
+    visited = [[0] * n for _ in range(n)]
+    visited[a][b] = 1
+    while queue:
+        x, y = queue.popleft()
+
+        for i in range(8):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if x == goal_x and y == goal_y:
+                return visited[x][y] - 1
+
+            if 0 <= nx < n and 0 <= ny < n:
+                if not visited[nx][ny]:
+                    queue.append([nx, ny])
+                    visited[nx][ny] = visited[x][y] + 1
+
+
+for _ in range(t):
+    n = int(input())
+    graph = [[0] * n for _ in range(n)]
+    knight_x, knight_y = map(int, input().split())
+    goal_x, goal_y = map(int, input().split())
+    print(bfs(knight_x, knight_y, graph))
