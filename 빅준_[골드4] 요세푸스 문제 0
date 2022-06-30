@@ -1,0 +1,14 @@
+n, k = map(int, input().split())
+lst = []
+for i in range(1, n+1):
+    lst.append(i)
+idx = 0
+result = []
+while lst:
+    idx += k-1
+    if idx > len(lst) - 1:
+        idx %= len(lst)
+    result.append(lst.pop(idx))
+
+s = ", ".join(map(str, result))
+print("<" + s + ">")
