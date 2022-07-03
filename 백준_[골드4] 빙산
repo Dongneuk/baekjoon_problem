@@ -62,3 +62,6 @@ if check:
     print(year)
 else:
     print(0)
+
+
+# 한번에 깎기.
