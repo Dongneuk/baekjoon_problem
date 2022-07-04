@@ -2,8 +2,11 @@ import sys
 from collections import deque
 
 input = sys.stdin.readline
+
 n, m = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(n)]
+graph = []
+for _ in range(n):
+    graph.append(list(map(int, input().split())))
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
@@ -16,52 +19,49 @@ def bfs(x, y):
 
     while queue:
         a, b = queue.popleft()
-        for i in range(4):
-
-            nx = a + dx[i]
-            ny = b + dy[i]
+        for d in range(4):
+            nx = a + dx[d]
+            ny = b + dy[d]
 
             if 0 <= nx < n and 0 <= ny < m:
-                if graph[nx][ny] != 0 and visited[nx][ny] == False:
+                if graph[nx][ny] != 0 and not visited[nx][ny]:
                     visited[nx][ny] = True
                     queue.append((nx, ny))
 
                 elif graph[nx][ny] == 0:
-                    sea_count[a][b] += 1
-    return 1
+                    tmp_graph[a][b] += 1
+
+    return True
 
 
 year = 0
-check = False
 while True:
     visited = [[False] * m for _ in range(n)]
-    sea_count = [[0] * m for _ in range(n)]
-    result = []
+    tmp_graph = [[0] * m for _ in range(n)]
+    cnt = 0
 
+    # 맵 순회하면서 근처 바다 갯수 체크
     for i in range(n):
         for j in range(m):
-            if graph[i][j] != 0 and visited[i][j] == False:
-                result.append(bfs(i, j))
+            if graph[i][j] != 0 and not visited[i][j]:
+                bfs(i, j)
+                cnt += 1
 
     # 빙산 깎기
     for i in range(n):
         for j in range(m):
-            graph[i][j] -= sea_count[i][j]
+            graph[i][j] -= tmp_graph[i][j]
             if graph[i][j] < 0:
                 graph[i][j] = 0
 
-    if len(result) == 0:
+    if cnt == 0:
+        year = 0
         break
-    if len(result) >= 2:
-        check = True
+
+    if cnt >= 2:
         break
 
     year += 1
 
-if check:
-    print(year)
-else:
-    print(0)
+print(year)
 
-
-# 한번에 깎기.
