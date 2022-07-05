@@ -1,57 +1,66 @@
 import sys
 from collections import deque
+
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-board = []
+
+graph = []
 for _ in range(n):
-    board.append(list(map(int, input().split())))
+    graph.append(list(map(int, input().split())))
 
 visited = [[False] * m for _ in range(n)]
-max_value = 0
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
-def dfs(x, y, dsum, cnt):
+max_value = 0
 
+
+def dfs(x, y, value_sum, cnt):
     global max_value
 
+    queue = deque()
+    queue.append((x, y))
+
     if cnt == 4:
-        max_value = max(max_value, dsum)
+        max_value = max(max_value, value_sum)
         return
 
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
-
         if 0 <= nx < n and 0 <= ny < m and not visited[nx][ny]:
             visited[nx][ny] = True
-            dfs(nx, ny, dsum + board[nx][ny], cnt+1)
+            dfs(nx, ny, value_sum + graph[nx][ny], cnt + 1)
             visited[nx][ny] = False
 
-def exec(a, b):
-    global max_value
-    for i in range(4):
-        temp = board[a][b]
-        for j in range(3):
-            t = (i+j) % 4
-            nx = a + dx[t]
-            ny = b + dy[t]
 
-            if not (0 <= nx < n and 0 <= ny < m):
+def exceptional(x, y):
+    global max_value
+
+    for i in range(4):
+        temp = graph[x][y]
+
+        for j in range(3):
+            d = (i + j) % 4
+
+            nx = x + dx[d]
+            ny = y + dy[d]
+
+            if nx < 0 or nx >= n or ny < 0 or ny >= m:
                 temp = 0
                 break
-            temp += board[nx][ny]
+            temp += graph[nx][ny]
         max_value = max(max_value, temp)
 
 
 for i in range(n):
     for j in range(m):
         visited[i][j] = True
-        dfs(i, j, board[i][j], 1)
+        dfs(i, j, graph[i][j], 1)
         visited[i][j] = False
 
-        exec(i, j)
+        exceptional(i, j)
 
-print(max_value)    
+print(max_value)
