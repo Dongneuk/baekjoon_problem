@@ -5,3 +5,6 @@ for i in croatia_alpha:
     word = word.replace(i, "a")
 
 print(len(word))
+
+
+
