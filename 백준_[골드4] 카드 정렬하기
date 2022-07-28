@@ -1,0 +1,23 @@
+import heapq
+import sys
+
+input = sys.stdin.readline
+n = int(input())
+
+lst = []
+for _ in range(n):
+    heapq.heappush(lst, int(input()))
+
+answer = 0
+
+if len(lst) == 1:
+    print(0)
+
+else:
+    while len(lst) > 1:
+        deck_1 = heapq.heappop(lst)
+        deck_2 = heapq.heappop(lst)
+        answer += deck_1 + deck_2
+        heapq.heappush(lst, deck_1 + deck_2)
+
+    print(answer)
