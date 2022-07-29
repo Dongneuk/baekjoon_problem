@@ -20,4 +20,5 @@ else:
         answer += deck_1 + deck_2
         heapq.heappush(lst, deck_1 + deck_2)
 
+
     print(answer)
