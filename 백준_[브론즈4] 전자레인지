@@ -1,0 +1,21 @@
+t = int(input())
+
+lst = [300, 60, 10]
+
+answer = []
+for i in lst:
+    if t >= i:
+        answer.append(t // i)
+        t %= i
+
+    else:
+        answer.append(0)
+
+
+if t == 0:
+    for a in answer:
+        print(a, end=' ')
+
+else:
+    print(-1)
+
