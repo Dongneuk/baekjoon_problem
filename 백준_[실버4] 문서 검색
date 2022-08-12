@@ -1,0 +1,13 @@
+document = input()
+word = input()
+
+answer = 0
+while True:
+    idx = document.find(word)
+    if idx == -1:
+        break
+
+    answer += 1
+    document = document[idx+len(word):]
+
+print(answer)
