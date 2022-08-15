@@ -35,5 +35,6 @@ for i in range(n - 2):
 if A != B:
     print(-1)
 
+
 else:
     print(cnt)
