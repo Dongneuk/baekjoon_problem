@@ -1,0 +1,17 @@
+import heapq
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+
+lst = list(map(int, input().split()))
+heapq.heapify(lst)
+
+for _ in range(m):
+    card1 = heapq.heappop(lst)
+    card2 = heapq.heappop(lst)
+
+    heapq.heappush(lst, card1 + card2)
+    heapq.heappush(lst, card1 + card2)
+
+print(sum(lst))
