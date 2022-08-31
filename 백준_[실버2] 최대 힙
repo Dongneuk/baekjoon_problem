@@ -1,0 +1,35 @@
+import heapq
+import sys
+
+n = int(input())
+lst = []
+
+for _ in range(n):
+    s = sys.stdin.readline().strip()
+
+    if s == '0':
+        if not lst:
+            print(0)
+
+        else:
+            print(-heapq.heappop(lst))
+
+    else:
+        heapq.heappush(lst, -int(s))import heapq
+import sys
+
+n = int(input())
+lst = []
+
+for _ in range(n):
+    s = sys.stdin.readline().strip()
+
+    if s == '0':
+        if not lst:
+            print(0)
+
+        else:
+            print(-heapq.heappop(lst))
+
+    else:
+        heapq.heappush(lst, -int(s))
