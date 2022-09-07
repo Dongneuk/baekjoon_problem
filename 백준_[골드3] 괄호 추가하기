@@ -44,4 +44,5 @@ def insert_bracket(i, q):
     return max(insert_bracket(i + 2, no_br), insert_bracket(i + 4, br))
 
 
+
 print(insert_bracket(0, []))
