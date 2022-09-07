@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a58abe50-55e0-4fca-b979-a9055ecfece2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/백준_[골드3] 괄호 추가하기" beforeDir="false" afterPath="$PROJECT_DIR$/백준_[골드3] 괄호 추가하기" afterDir="false" />
-    </list>
+    <list default="true" id="a58abe50-55e0-4fca-b979-a9055ecfece2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +38,7 @@
       <workItem from="1662536106365" duration="47000" />
       <workItem from="1662536245283" duration="6000" />
       <workItem from="1662545028743" duration="33000" />
+      <workItem from="1662547427331" duration="78000" />
     </task>
     <servers />
   </component>
