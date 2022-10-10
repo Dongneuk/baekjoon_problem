@@ -1,6 +1,5 @@
-import sys
-input = sys.stdin.readline
-s = input().rstrip().split('-')
+s = input()
+s = s.split('-')
 
 answer = 0
 for i in s[0].split('+'):

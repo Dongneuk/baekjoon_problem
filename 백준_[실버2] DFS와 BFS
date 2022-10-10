@@ -1,49 +1,57 @@
-import sys
 from collections import deque
 
-input = sys.stdin.readline
-
 n, m, v = map(int, input().split())
-graph = [[] for _ in range(n+1)]
-visited = [False] * (n+1)
+
+graph = [[] for _ in range(n + 1)]
 
 for _ in range(m):
     a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
+# 순차 방문을 위한 그래프 정렬
 for i in range(len(graph)):
     graph[i].sort()
 
+visited = [False] * (n + 1)
+answer = []
+
 
 def dfs(start):
-    print(start, end=' ')
+    answer.append(start)
     visited[start] = True
 
     for i in graph[start]:
         if not visited[i]:
-            dfs(i)
             visited[i] = True
+            dfs(i)
+
+
+dfs(v)
+for a in answer:
+    print(a, end=' ')
+
+
+print('')
+visited = [False] * (n + 1)
+answer = []
 
 
 def bfs(start):
-    queue = deque([start])
+    queue = deque()
+    queue.append(start)
     visited[start] = True
 
     while queue:
         now = queue.popleft()
-        print(now, end=' ')
+        answer.append(now)
 
         for i in graph[now]:
             if not visited[i]:
-                queue.append(i)
                 visited[i] = True
+                queue.append(i)
 
 
-
-dfs(v)
-print()
-visited = [False] * (n+1)
 bfs(v)
-
-# visited 여부에 따라 결과가 달라지므로 visited 체크에 유의하자.
+for a in answer:
+    print(a, end=' ')   
