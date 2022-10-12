@@ -1,0 +1,28 @@
+from collections import Counter
+
+s = input()
+dic = Counter(s)
+
+flag = False
+cnt = 0
+center = ''
+for key in dic:
+    if dic[key] % 2 != 0:
+        cnt += 1
+        center = key
+        dic[key] -= 1
+
+        if cnt >= 2:
+            flag = True
+            print("I'm Sorry Hansoo")
+            break
+
+dic = sorted(dic.items())
+
+if not flag:
+    result = ''
+    for key, value in dic:
+        result += key * (value // 2)
+
+    answer = result + center + result[::-1]
+    print(answer)

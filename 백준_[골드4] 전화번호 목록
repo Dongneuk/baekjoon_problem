@@ -1,29 +1,22 @@
-import sys
-input = sys.stdin.readline
-
 t = int(input())
 
-def check():
-
-    for i in range(len(lst) - 1):
-        if lst[i] == lst[i+1][0: len(lst[i])]:
-            print("NO")
-            return
-    print("YES")
-
-# 테스트 케이스 경우의 수
 for _ in range(t):
     n = int(input())
-
-    # 각각의 n 마다 lst 만들기.
     lst = []
+    tag = False
     for _ in range(n):
-        lst.append(input().strip())
-    # sort해서 길이가 짧은 순서대로 정렬.
+        lst.append(input())
+
     lst.sort()
 
-    # 일관성 check 함수.
-    check()
+    for i in range(len(lst) - 1):
+        if lst[i] == lst[i+1][0:len(lst[i])]:
+            print("NO")
+            tag = True
+            break
+
+    if not tag:
+        print("YES")
 
 
 

@@ -1,0 +1,8 @@
+s = input()
+word = set()
+
+for i in range(len(s)):
+    for j in range(i, len(s)):
+        word.add(s[i:j+1])
+
+print(len(word))
