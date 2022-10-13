@@ -1,11 +1,11 @@
-import sys
-input = sys.stdin.readline
+s = list(input())
+t = list(input())
 
-s = list(input().rstrip())
-t = list(input().rstrip())
-
-switch = False
 while t:
+
+    if t == s:
+        break
+
     if t[-1] == 'A':
         t.pop()
 
@@ -13,14 +13,8 @@ while t:
         t.pop()
         t.reverse()
 
-    if s == t:
-        switch = True
-        break
-
-if switch:
-    print(1)
+if t:
+    print("1")
 
 else:
-    print(0)
-
-# 글자 확인
+    print("0")
