@@ -1,0 +1,27 @@
+n = int(input())
+answer = 0
+
+
+def check(v):
+    for i in range(v):
+        if col[i] == col[v] or abs(col[v] - col[i]) == v - i:
+            return False
+    return True
+
+
+def dfs(v):
+    global answer
+
+    if v == n:
+        answer += 1
+        return
+
+    for i in range(n):
+        col[v] = i
+        if check(v):
+            dfs(v + 1)
+
+
+col = [0] * 15
+dfs(0)
+print(answer)

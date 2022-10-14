@@ -1,0 +1,14 @@
+n = int(input())
+
+pattern = input()
+p = pattern.split('*')
+start, end = p[0], p[1]
+
+
+for _ in range(n):
+    word = input()
+
+    if word[:len(start)] == start and word[-len(end):] == end and len(''.join(p)) <= len(word):
+        print("DA")
+    else:
+        print("NE")
