@@ -1,0 +1,26 @@
+n, m = map(int, input().split())
+lst = list(map(int, input().split()))
+lst.sort()
+
+answer = []
+visited = [False] * n
+
+
+def dfs(idx):
+
+    if len(answer) == m:
+        print(' '.join(map(str, answer)))
+        return
+
+    temp = 0
+    for i in range(len(lst)):
+        if not visited[i] and temp != lst[i]:
+            visited[i] = True
+            answer.append(lst[i])
+            temp = lst[i]
+            dfs(i+1)
+            answer.pop()
+            visited[i] = False
+
+
+dfs(0)

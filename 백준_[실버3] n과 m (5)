@@ -1,0 +1,19 @@
+n, m = map(int, input().split())
+lst = list(map(int, input().split()))
+lst.sort()
+
+answer = []
+
+
+def dfs(idx):
+    if len(answer) == m:
+        print(' '.join(map(str, answer)))
+
+    for i in lst:
+        if i not in answer:
+            answer.append(i)
+            dfs(i + 1)
+            answer.pop()
+
+
+dfs(0)
