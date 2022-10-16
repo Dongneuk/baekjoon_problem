@@ -4,21 +4,26 @@ t = int(input())
 
 for _ in range(t):
     n, m = map(int, input().split())
+
+    queue = deque(map(int, input().split()))
+    idx = deque(i for i in range(n))
+
+    idx[m] = 'target'
     cnt = 0
-    queue = deque(list(map(int, input().strip().split())))
 
     while queue:
-        max_number = max(queue)
-        front = queue.popleft()
-        m -= 1
 
-        if max_number == front:
+        #만약 젤 왼쪽꺼가 우선순위중 가장 큰값
+        if queue[0] == max(queue):
             cnt += 1
-            if m < 0:
+            if idx[0] == 'target':
                 print(cnt)
                 break
+            else:
+                queue.popleft()
+                idx.popleft()
 
+        # 우선순위 아닌경우
         else:
-            queue.append(front)
-            if m < 0:
-                m = len(queue) - 1
+            queue.append(queue.popleft())
+            idx.append(idx.popleft())

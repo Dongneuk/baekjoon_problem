@@ -1,19 +1,21 @@
 import heapq
 import sys
 
-n = int(sys.stdin.readline())
+input = sys.stdin.readline
 
-heap = []
+n = int(input())
+
+abs_heap = []
 
 for _ in range(n):
-    num = int(sys.stdin.readline())
+    num = int(input())
 
+    #숫자 0
     if num == 0:
-        try:
-            print(heapq.heappop(heap)[1])
-
-        except:
-            print(0)
+        if abs_heap:
+            print(heapq.heappop(abs_heap)[1])
+        else:
+            print("0")
 
     else:
-        heapq.heappush(heap, (abs(num), num))
+        heapq.heappush(abs_heap, (abs(num), num))

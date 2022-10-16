@@ -3,24 +3,26 @@ import sys
 
 input = sys.stdin.readline
 n = int(input())
+heap = []
 
-lst = []
 for _ in range(n):
-    heapq.heappush(lst, int(input()))
+    num = int(input())
+    heapq.heappush(heap, num)
+
 
 answer = 0
+while heap:
 
-if len(lst) == 1:
-    print(0)
+    if len(heap) >= 2:
+        num1 = heapq.heappop(heap)
+        num2 = heapq.heappop(heap)
 
-else:
-    while len(lst) > 1:
-        deck_1 = heapq.heappop(lst)
-        deck_2 = heapq.heappop(lst)
-        answer += deck_1 + deck_2
-        heapq.heappush(lst, deck_1 + deck_2)
+        answer += num1 + num2
+        heapq.heappush(heap, num1 + num2)
+
+    else:
+        last = heapq.heappop(heap)
+        break
 
 
-
-
-    print(answer)
+print(answer)
