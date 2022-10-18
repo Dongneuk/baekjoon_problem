@@ -1,0 +1,21 @@
+n, s = map(int ,input().split())
+lst = list(map(int, input().split()))
+
+num = lst[0]
+i, j = 0, 0
+
+answer = int(1e9)
+while True:
+
+    if num >= s:
+        num -= lst[i]
+        answer = min(answer, j - i + 1)
+        i += 1
+
+    else:
+        j += 1
+        if j == n:
+            break
+        num += lst[j]
+
+print(0) if answer == int(1e9) else print(answer)

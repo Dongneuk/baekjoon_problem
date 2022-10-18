@@ -1,0 +1,28 @@
+import sys
+
+input = sys.stdin.readline
+
+n = int(input())
+lst = list(map(int, input().split()))
+m = int(input())
+
+start, end = 0, max(lst)
+
+while start <= end:
+    mid = (start + end) // 2
+
+    cnt = 0
+    for i in lst:
+        if i <= mid:
+            cnt += i
+        else:
+            cnt += mid
+
+    if cnt > m:
+        end = mid - 1
+
+    if cnt <= m:
+        start = mid + 1
+
+
+print(end)

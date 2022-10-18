@@ -1,0 +1,16 @@
+import sys
+
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+lst = list(map(int, input().split()))
+
+total = [0]
+for i in range(len(lst)):
+    total.append(lst[i] + total[i])
+
+
+for _ in range(m):
+    a, b = map(int, input().split())
+
+    print(total[b] - total[a-1])
