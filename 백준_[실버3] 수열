@@ -1,0 +1,11 @@
+n, k = map(int, input().split())
+lst = list(map(int, input().split()))
+
+part_sum = sum(lst[:k])
+result = [part_sum]
+
+for i in range(len(lst) - k):
+    part_sum = part_sum - lst[i] + lst[i+k]
+    result.append(part_sum)
+
+print(max(result))

@@ -1,0 +1,27 @@
+n = int(input())
+
+stack = []
+answer = []
+tag = True
+num = 0
+
+for i in range(n):
+    x = int(input())
+
+    while num < x:
+        num += 1
+        stack.append(num)
+        answer.append("+")
+
+    if stack[-1] == x:
+        answer.append("-")
+        stack.pop()
+
+    else:
+        tag = False
+        break
+
+if not tag:
+    print("NO")
+else:
+    print("\n".join(answer))
