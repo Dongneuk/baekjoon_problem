@@ -1,0 +1,23 @@
+from collections import Counter
+
+n = int(input())
+
+word = input()
+word_cnt = Counter(word)
+
+cnt = 0
+for i in range(n-1):
+    tmp_cnt = Counter(input())
+    p, m = 0, 0
+
+    for key in (word_cnt|tmp_cnt):
+
+        if word_cnt[key] > tmp_cnt[key]:
+            p += (word_cnt[key] - tmp_cnt[key])
+        elif word_cnt[key] < tmp_cnt[key]:
+            m += (tmp_cnt[key] - word_cnt[key])
+
+    if p <= 1 and m <= 1:
+        cnt += 1
+
+print(cnt)

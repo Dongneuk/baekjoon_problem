@@ -1,0 +1,26 @@
+n = int(input())
+lst = list(map(int, input().split(' ')))
+
+lst.sort()
+
+l, r = 0, n - 1
+
+answer = int(2e9)
+final = []
+
+while l < r:
+
+    total = lst[l] + lst[r]
+
+    if abs(total) < answer:
+        answer = abs(total)
+        final = [lst[l], lst[r]]
+
+    if total < 0:
+        l += 1
+
+    else:
+        r -= 1
+
+
+print(final[0], final[1])

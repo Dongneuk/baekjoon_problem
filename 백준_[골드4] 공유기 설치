@@ -1,0 +1,30 @@
+import sys
+
+input = sys.stdin.readline
+n, c = map(int, input().split())
+
+lst = []
+for _ in range(n):
+    lst.append(int(input()))
+
+lst.sort()
+start, end = 1, lst[-1]
+answer = 0
+
+while start <= end:
+    mid = (start + end) // 2
+    cnt = 1
+    cur = lst[0]
+
+    for i in range(len(lst)):
+        if lst[i] - mid >= cur:
+            cnt += 1
+            cur = lst[i]
+
+    if cnt >= c:
+        answer = max(answer, mid)
+        start = mid + 1
+    else:
+        end = mid - 1
+
+print(answer)
