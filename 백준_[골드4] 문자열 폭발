@@ -1,24 +1,25 @@
 import sys
-
 input = sys.stdin.readline
-word = input().strip()
-bomb = input().strip()
+
+s = list(input().rstrip())
+bomb = list(input().rstrip())
+
 
 stack = []
-for char in word:
-    stack.append(char)
 
-    if char == bomb[-1] and ''.join(stack[-len(bomb):]) == bomb:
-        del stack[-len(bomb):]
+for i in range(len(s)):
+    stack.append(s[i])
 
-    answer = ''.join(stack)
+    if stack[-1] == bomb[-1]:
+        if stack[-len(bomb):] == bomb:
+            for i in range(len(bomb)):
+                stack.pop()
 
-if answer:
-    print(answer)
 
+if len(stack) != 0:
+    print("".join(stack))
 else:
     print("FRULA")
-
 
 ## 스텍을 활용하여 s의 문자를 순차적으로 담는다.
 ## 만약 bomb[-1]이 값이 스텍의 젤 마지막 값과 일치할 경우, bomb길이 만큼 같은지 s에서 확인.
