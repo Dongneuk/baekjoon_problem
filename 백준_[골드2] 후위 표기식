@@ -1,0 +1,32 @@
+
+s = input()
+
+tmp = ''
+stack = []
+for i in range(len(s)):
+    if s[i].isalpha():
+        tmp += s[i]
+    else:
+        if s[i] == '(':
+            stack.append(s[i])
+
+        elif s[i] == '*' or s[i] == '/':
+            while stack and (stack[-1] == '*' or stack[-1] == '/'):
+                tmp += stack.pop()
+            stack.append(s[i])
+
+        elif s[i] == '+' or s[i] == '-':
+            while stack and stack[-1] != '(':
+                tmp += stack.pop()
+            stack.append(s[i])
+
+        elif s[i] == ')':
+            while stack and stack[-1] != '(':
+                tmp += stack.pop()
+            stack.pop()
+
+
+while stack:
+    tmp += stack.pop()
+
+print(tmp)
