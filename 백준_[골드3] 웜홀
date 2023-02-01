@@ -1,0 +1,40 @@
+t = int(input())
+
+
+def bf(start):
+
+    distance[start] = 0
+    for i in range(n+1):
+        for j in range(n+1):
+            for node, time in graph[j]:
+                if distance[node] > distance[j] + time:
+                    distance[node] = distance[j] + time
+
+                    if i == n:
+                        return True
+
+    return False
+
+
+
+for _ in range(t):
+    n, m, w = map(int, input().split())
+    graph = [[] for _ in range(n+1)]
+    distance = [10001] * (n+1)
+
+    for _ in range(m):
+        s, e, t = map(int, input().split())
+        graph[s].append([e, t])
+        graph[e].append([s, t])
+
+    for _ in range(w):
+        s, e, t = map(int, input().split())
+        graph[s].append([e, -t])
+
+    if bf(1):
+        print("YES")
+
+    else:
+        print("NO")
+
+
