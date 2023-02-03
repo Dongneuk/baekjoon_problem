@@ -2,6 +2,7 @@ n = int(input())
 
 lst = list(map(int, input().split()))
 act = list(map(int, input().split()))
+
 add, sub, mul, div = act[0], act[1], act[2], act[3]
 
 max_num = -1e9
